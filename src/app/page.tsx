@@ -1,5 +1,15 @@
-import Image from "next/image";
+import AnimeCarousel from "@/components/layout/AnimeCarousel";
+import DiscoverAnime from "@/components/layout/discoverAnime";
+import Hero from "@/components/layout/hero";
+import Navbar from "@/components/layout/navbar";
 
 export default function Home() {
-  return <div>Anime Gallery</div>;
+  return (
+    <div className="max-w-7xl mx-auto">
+      <Navbar />
+      <Hero />
+      <DiscoverAnime />
+      <AnimeCarousel/>
+    </div>
+  );
 }
