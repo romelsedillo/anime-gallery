@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react";
 import blackClover from "@/images/black-clover.jpg";
 import blackLagoon from "@/images/black-lagoon.jpg";
@@ -8,6 +7,7 @@ import sakamotoDays from "@/images/sakamoto-days.jpg";
 import soloLeveling from "@/images/solo-leveling.jpg";
 import tokyoRevengers from "@/images/tokyo-revengers.jpg";
 import windBreaker from "@/images/wind-breaker.jpg";
+import AnimeCard from "./animeCard";
 
 const animeList = [
   {
@@ -51,27 +51,13 @@ const DiscoverAnime = () => {
         <h2 className="text-4xl font-bold mb-10 text-center">
           Discover New Anime
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8">
           {animeList.map((anime, index) => (
-            <div
+            <AnimeCard
               key={index}
-              className="bg-gray-900 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition duration-300 relative bg-cover bg-center hover:border-2 hover:cursor-pointer hover:border-purple-900"
-            >
-              <Image
-                src={anime.imageUrl}
-                alt={anime.title}
-                width={400}
-                height={700}
-                className="w-full object-cover"
-              />
-              <div className="absolute inset-0 flex items-end justify-center">
-                <div className="w-full backdrop-blur-lg py-3 px-4 bg-black/50">
-                  <h2 className="text-white text-lg font-semibold">
-                    {anime.title}
-                  </h2>
-                </div>
-              </div>
-            </div>
+              title={anime.title}
+              imageUrl={anime.imageUrl}
+            />
           ))}
         </div>
       </div>

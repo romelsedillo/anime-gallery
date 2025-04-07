@@ -5,11 +5,11 @@ import Navbar from "@/components/layout/navbar";
 
 export default function Home() {
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl flex flex-col mx-auto">
       <Navbar />
       <Hero />
       <DiscoverAnime />
-      <AnimeCarousel/>
+      <AnimeCarousel />
     </div>
   );
 }
