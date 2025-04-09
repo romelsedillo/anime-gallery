@@ -1,10 +1,9 @@
 import React from "react";
 import soloLevelingHero from "@/images/solo-leveling-hero.jpg";
 
-
 const Hero = () => {
   return (
-    <div className="">
+    <div id="home" className="pt-16">
       <div
         className="relative w-full h-[600px] bg-cover bg-center"
         style={{ backgroundImage: `url(${soloLevelingHero.src})` }}

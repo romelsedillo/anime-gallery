@@ -1,12 +1,11 @@
 import React from "react";
-import { Input } from "../ui/input";
 import Link from "next/link";
 import { ModeToggle } from "./modeToggle";
 import { Menu } from "lucide-react";
 
 const Navbar = () => {
   return (
-    <nav className="w-full max-w-7xl fixed z-20 py-2 px-8 flex items-center justify-between">
+    <nav className="w-full max-w-7xl fixed z-20 py-3 px-8 flex items-center justify-between bg-gradient-to-r from-purple-600 to-indigo-600">
       <div className="flex items-center">
         <Link href="/" className="text-xl font-bold text-primary">
           Anime Gallery
@@ -25,16 +24,16 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              href="/favorites"
+              href="#top-anime"
               className="text-sm font-medium hover:underline"
             >
-              Discover
+              Top Anime
             </Link>
             <Link
-              href="/favorites"
+              href="#recommendation"
               className="text-sm font-medium hover:underline"
             >
-              Categories
+              Recommendation
             </Link>
             <Link
               href="/favorites"

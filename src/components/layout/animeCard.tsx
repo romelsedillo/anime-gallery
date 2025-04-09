@@ -34,7 +34,7 @@ export default function AnimeCard({ title, imageUrl }: AnimeCardProps) {
 
           {/* Title Overlay */}
           <div className="absolute inset-0 flex items-end justify-center">
-            <div className="w-full backdrop-blur-lg py-3 px-4 bg-black/20 group-hover:bg-black/40 transition-colors">
+            <div className="absolute inset-0 flex items-end justify-center">
               <h2 className="text-white font-semibold text-sm">{title}</h2>
             </div>
           </div>
