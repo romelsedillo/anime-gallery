@@ -1,20 +1,19 @@
 import React from "react";
 import Link from "next/link";
-import { ModeToggle } from "./modeToggle";
 import { Menu } from "lucide-react";
 
 const Navbar = () => {
   return (
-    <nav className="w-full max-w-7xl fixed z-20 py-3 px-8 flex items-center justify-between bg-gradient-to-r from-purple-600 to-indigo-600">
+    <nav className="w-full max-w-7xl fixed z-20 py-4 px-8 flex items-center justify-between bg-[#121212] mx-auto -top-1 text-[#00FF85] ">
       <div className="flex items-center">
-        <Link href="/" className="text-xl font-bold text-primary">
+        <Link href="/" className="text-xl font-bold text-[] ">
           Anime Gallery
         </Link>
       </div>
       <div className="flex items-center space-x-4">
         <input
           placeholder="Search anime..."
-          className="w-sm px-4 py-2 outline-none border-2 focus:border-purple-700 rounded-lg"
+          className="w-sm px-4 py-1 outline-none border-1 text-[#E0E0E0]  border-[#00FF85] rounded-lg"
         />
       </div>
       <div className="hidden md:block">
@@ -36,16 +35,15 @@ const Navbar = () => {
               Recommendation
             </Link>
             <Link
-              href="/favorites"
+              href="/characters"
               className="text-sm font-medium hover:underline"
             >
-              Favorites
+              Characters
             </Link>
           </div>
         </div>
       </div>
       <div className="flex items-center space-x-4">
-        <ModeToggle />
         <Menu className="md:hidden w-5 h-5 text-gray-300 cursor-pointer hover:text-purple-500 transition-colors" />
       </div>
     </nav>

@@ -57,18 +57,17 @@ const AnimeRecommendation = () => {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    // window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <div id="recommendation" className="border px-10 py-20">
-      <h1 className="text-2xl font-bold mb-4 text-left">
+    <div id="recommendation" className="px-10 py-20">
+      <h1 className="text-2xl font-bold mb-4 text-left text-[#E0E0E0]">
         Anime Recommendations
       </h1>
-      <div className="border-b-3 dark:border-purple-500 w-full mb-10"></div>
+      <div className="border-b-3 border-[#00FF85] w-full mb-10"></div>
 
       {loading ? (
-        <p className="text-center text-gray-400">Loading recommendations...</p>
+        <p className="text-center text-[#E0E0E0]">Loading recommendations...</p>
       ) : currentItems.length > 0 ? (
         <>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4 sm:px-6 md:px-8">
@@ -86,7 +85,7 @@ const AnimeRecommendation = () => {
                       className="w-[200px] h-[282px] object-cover transition-transform duration-300 hover:scale-105"
                     />
                   </div>
-                  <h2 className="line-clamp-2 font-semibold text-lg w-full break-words text-left">
+                  <h2 className="text-[#E0E0E0] line-clamp-2 font-semibold text-lg w-full break-words text-left">
                     {anime.title}
                   </h2>
                 </div>
@@ -95,20 +94,36 @@ const AnimeRecommendation = () => {
           </div>
 
           {/* Pagination */}
-          <div className="flex justify-center mt-8 space-x-2 flex-wrap">
+          <div className="flex justify-center mt-8 space-x-2 flex-wrap items-center">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="px-3 py-1 rounded-md text-sm font-medium border bg-white text-gray-800 hover:bg-gray-200 disabled:opacity-50"
+            >
+              Previous
+            </button>
+
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
               <button
                 key={page}
                 onClick={() => handlePageChange(page)}
-                className={`px-3 py-1 rounded-md text-sm font-medium border cursor-pointer ${
+                className={`px-3 py-1 rounded-md text-sm font-medium ${
                   page === currentPage
-                    ? "bg-purple-600 text-white"
+                    ? "bg-[#00FF85] text-[#121212]"
                     : "bg-white text-gray-800 hover:bg-gray-200"
                 }`}
               >
                 {page}
               </button>
             ))}
+
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="px-3 py-1 rounded-md text-sm font-medium border bg-white text-gray-800 hover:bg-gray-200 disabled:opacity-50"
+            >
+              Next
+            </button>
           </div>
         </>
       ) : (

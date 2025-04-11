@@ -35,8 +35,10 @@ const TopAnime = () => {
 
   return (
     <div id="top-anime" className="px-10 py-20">
-      <h1 className="text-2xl font-bold mb-4 text-left">Top Anime</h1>
-      <div className="border-b-3 dark:border-purple-500 w-full mb-10"></div>
+      <h1 className="text-2xl font-bold mb-4 text-left text-white">
+        Top Anime
+      </h1>
+      <div className="border-b-3 border-[#00FF85] w-full mb-10"></div>
 
       {loading ? (
         <TopAnimeSkeleton />
@@ -54,7 +56,7 @@ const TopAnime = () => {
                     className="w-[200px] h-[282px] object-cover transition-transform duration-300 hover:scale-105"
                   />
                 </div>
-                <h2 className="line-clamp-2 font-semibold text-lg w-full break-words text-left">
+                <h2 className="text-[#E0E0E0] line-clamp-2 font-semibold text-lg w-full break-words text-left">
                   {anime.title}
                 </h2>
               </div>

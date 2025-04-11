@@ -29,6 +29,7 @@ const getAnimeEpisodes = async (id: string) => {
     });
     if (!res.ok) throw new Error("Failed to fetch episodes");
     const data = await res.json();
+    console.log(data);
     return data.data;
   } catch (error) {
     return [];
@@ -42,9 +43,9 @@ export default async function AnimeDetailsPage({ params }: PageProps) {
   if (!anime) return notFound();
 
   return (
-    <>
+    <div className="max-w-7xl flex flex-col mx-auto">
       <Navbar />
-      <div className="max-w-6xl mx-auto px-6 py-28">
+      <div className="mx-auto px-6 py-28">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Anime Poster */}
           <Image
@@ -52,50 +53,56 @@ export default async function AnimeDetailsPage({ params }: PageProps) {
             alt={anime.title}
             width={335}
             height={473}
-            className="w-[335px] h-[473px] object-cover rounded-xl shadow-lg shadow-purple-400"
+            className="w-[335px] h-[473px] object-cover rounded-lg"
           />
 
           {/* Anime Details */}
           <div className="lg:w-2/3 space-y-6">
             <div>
-              <h1 className="text-4xl font-bold">{anime.title}</h1>
+              <h1 className="text-[#FFFFFF] text-4xl font-bold">
+                {anime.title}
+              </h1>
               {anime.title_english && (
-                <h2 className="text-xl text-purple-400 mt-1">
+                <h2 className="text-xl text-[#FFFFFF] mt-1">
                   {anime.title_english}
                 </h2>
               )}
             </div>
 
-            <p className="text-lg leading-relaxed">{anime.synopsis}</p>
+            <p className="text-lg leading-relaxed text-[#FFFFFF]">
+              {anime.synopsis}
+            </p>
 
             <div className="flex flex-wrap gap-4 text-lg mt-4">
-              <span>
+              <span className="text-[#FFFFFF]">
                 Episodes:{" "}
-                <span className="text-purple-400">{anime.episodes ?? "?"}</span>
+                <span className="text-[#00FF85]">{anime.episodes ?? "?"}</span>
               </span>
-              <span>
+              <span className="text-[#FFFFFF]">
                 Year:{" "}
-                <span className="text-purple-400">{anime.year ?? "?"}</span>
+                <span className="text-[#00FF85]">{anime.year ?? "?"}</span>
               </span>
-              <span>
+              <span className="text-[#FFFFFF]">
                 Score:{" "}
-                <span className="text-purple-400">{anime.score ?? "?"}/10</span>
+                <span className="text-[#00FF85]">{anime.score ?? "?"}/10</span>
               </span>
-              <span>
-                Status: <span className="text-purple-400">{anime.status}</span>
+              <span className="text-[#FFFFFF]">
+                Status: <span className="text-[#00FF85]">{anime.status}</span>
               </span>
-              <span>
-                Type: <span className="text-purple-400">{anime.type}</span>
+              <span className="text-[#FFFFFF]">
+                Type: <span className="text-[#00FF85]">{anime.type}</span>
               </span>
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-2">Genres:</h3>
+              <h3 className="text-[#FFFFFF] text-lg font-semibold mb-2">
+                Genres:
+              </h3>
               <div className="flex flex-wrap gap-2">
                 {anime.genres.map((genre: any) => (
                   <span
                     key={genre.mal_id}
-                    className="px-3 py-1 bg-purple-700 text-white rounded-full text-sm hover:bg-purple-800 transition"
+                    className="px-3 py-1 bg-[#00FF85] text-[#0D0D0D] rounded-full text-sm"
                   >
                     {genre.name}
                   </span>
@@ -124,15 +131,17 @@ export default async function AnimeDetailsPage({ params }: PageProps) {
         )}
         {anime.streaming?.length > 0 && (
           <div className="mt-8">
-            <h2 className="text-xl font-semibold mb-4">Available On:</h2>
-            <ul className="space-y-2 list-disc list-inside">
+            <h2 className="text-[#FFFFFF] text-xl font-semibold mb-4">
+              Available On:
+            </h2>
+            <ul className="text-[#FFFFFF] space-y-2 list-disc list-inside">
               {anime.streaming.map((stream: any) => (
                 <li key={stream.name}>
                   <a
                     href={stream.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-purple-400 underline"
+                    className="text-[#00FF85] underline"
                   >
                     {stream.name}
                   </a>
@@ -143,6 +152,6 @@ export default async function AnimeDetailsPage({ params }: PageProps) {
         )}
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
