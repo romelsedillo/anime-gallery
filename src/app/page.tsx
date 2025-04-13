@@ -1,9 +1,9 @@
-import AnimeRecommendation from "@/components/layout/animeRecomendation";
-import Footer from "@/components/layout/footer";
-import Hero from "@/components/layout/hero";
-import Navbar from "@/components/layout/navbar";
-import TopAnime from "@/components/layout/topAnime";
-import UpComingSeason from "@/components/layout/upComingSeason";
+import AnimeRecommendation from "@/components/layout/AnimeRecomendation";
+import Footer from "@/components/layout/Footer";
+import Hero from "@/components/layout/Hero";
+import Navbar from "@/components/layout/Navbar";
+import TopAnime from "@/components/layout/TopAnime";
+import UpComingSeason from "@/components/layout/UpComingSeason";
 
 export default function Home() {
   return (

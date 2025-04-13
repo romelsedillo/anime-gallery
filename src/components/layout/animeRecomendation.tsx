@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import AnimeSkeleton from "./AnimeSkeleton";
 
 interface AnimeEntry {
   mal_id: number;
@@ -32,13 +33,11 @@ const AnimeRecommendation = () => {
           "https://api.jikan.moe/v4/recommendations/anime"
         );
         const data = await res.json();
-        console.log(data);
-
         const entries: AnimeEntry[] = data?.data.flatMap(
           (rec: Recommendation) => rec.entry
         );
-
         setRecommendations(entries);
+        console.log(data);
       } catch (error) {
         console.error("Failed to fetch recommendations", error);
       } finally {
@@ -67,12 +66,15 @@ const AnimeRecommendation = () => {
       <div className="border-b-3 border-[#00FF85] w-full mb-10"></div>
 
       {loading ? (
-        <p className="text-center text-[#E0E0E0]">Loading recommendations...</p>
+        <AnimeSkeleton />
       ) : currentItems.length > 0 ? (
         <>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4 sm:px-6 md:px-8">
-            {currentItems.map((anime) => (
-              <Link key={anime.mal_id} href={`/anime/${anime.mal_id}`}>
+            {currentItems.map((anime, index) => (
+              <Link
+                key={`${anime.mal_id}-${index}`}
+                href={`/anime/${anime.mal_id}`}
+              >
                 <div className="w-full max-w-[200px] mx-auto mb-2">
                   <div className="overflow-hidden rounded">
                     <Image

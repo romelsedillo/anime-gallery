@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import Navbar from "@/components/layout/navbar";
-import Footer from "@/components/layout/footer";
+import Link from "next/link";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 
 interface PageProps {
   params: {
@@ -9,45 +10,66 @@ interface PageProps {
   };
 }
 
-const getAnimeData = async (id: string) => {
+interface Anime {
+  mal_id: number;
+  title: string;
+  title_english?: string;
+  synopsis?: string;
+  images: {
+    jpg: {
+      large_image_url: string;
+    };
+  };
+  episodes?: number;
+  year?: number;
+  score?: number;
+  status?: string;
+  type?: string;
+  genres: {
+    mal_id: number;
+    name: string;
+  }[];
+  trailer?: {
+    youtube_id?: string;
+  };
+  streaming?: {
+    name: string;
+    url: string;
+  }[];
+}
+
+const getAnimeData = async (id: string): Promise<Anime | null> => {
   try {
     const res = await fetch(`https://api.jikan.moe/v4/anime/${id}/full`, {
       cache: "no-cache",
     });
     if (!res.ok) throw new Error("Failed to fetch");
     const data = await res.json();
-    console.log(data);
     return data.data;
   } catch (error) {
     return null;
   }
 };
-const getAnimeEpisodes = async (id: string) => {
-  try {
-    const res = await fetch(`https://api.jikan.moe/v4/anime/${id}/episodes`, {
-      cache: "no-cache",
-    });
-    if (!res.ok) throw new Error("Failed to fetch episodes");
-    const data = await res.json();
-    console.log(data);
-    return data.data;
-  } catch (error) {
-    return [];
-  }
-};
 
 export default async function AnimeDetailsPage({ params }: PageProps) {
   const anime = await getAnimeData(params.id);
-  const episodes = await getAnimeEpisodes(params.id);
 
   if (!anime) return notFound();
 
   return (
     <div className="max-w-7xl flex flex-col mx-auto">
       <Navbar />
-      <div className="mx-auto px-6 py-28">
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Anime Poster */}
+      <div className="py-20">
+        {/* Back Button */}
+        <Link
+          href="/"
+          className="inline-block text-[#00FF85] hover:underline mb-6 px-20"
+        >
+          ← Back to Home
+        </Link>
+
+        <div className="flex flex-col lg:flex-row gap-8 px-20">
+          {/* Poster */}
           <Image
             src={anime.images?.jpg?.large_image_url || "/fallback.jpg"}
             alt={anime.title}
@@ -56,7 +78,7 @@ export default async function AnimeDetailsPage({ params }: PageProps) {
             className="w-[335px] h-[473px] object-cover rounded-lg"
           />
 
-          {/* Anime Details */}
+          {/* Anime Info */}
           <div className="lg:w-2/3 space-y-6">
             <div>
               <h1 className="text-[#FFFFFF] text-4xl font-bold">
@@ -69,9 +91,11 @@ export default async function AnimeDetailsPage({ params }: PageProps) {
               )}
             </div>
 
-            <p className="text-lg leading-relaxed text-[#FFFFFF]">
-              {anime.synopsis}
-            </p>
+            {anime.synopsis && (
+              <p className="text-lg leading-relaxed text-[#FFFFFF]">
+                {anime.synopsis}
+              </p>
+            )}
 
             <div className="flex flex-wrap gap-4 text-lg mt-4">
               <span className="text-[#FFFFFF]">
@@ -87,36 +111,43 @@ export default async function AnimeDetailsPage({ params }: PageProps) {
                 <span className="text-[#00FF85]">{anime.score ?? "?"}/10</span>
               </span>
               <span className="text-[#FFFFFF]">
-                Status: <span className="text-[#00FF85]">{anime.status}</span>
+                Status:{" "}
+                <span className="text-[#00FF85]">
+                  {anime.status ?? "Unknown"}
+                </span>
               </span>
               <span className="text-[#FFFFFF]">
-                Type: <span className="text-[#00FF85]">{anime.type}</span>
+                Type:{" "}
+                <span className="text-[#00FF85]">{anime.type ?? "?"}</span>
               </span>
             </div>
 
-            <div>
-              <h3 className="text-[#FFFFFF] text-lg font-semibold mb-2">
-                Genres:
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {anime.genres.map((genre: any) => (
-                  <span
-                    key={genre.mal_id}
-                    className="px-3 py-1 bg-[#00FF85] text-[#0D0D0D] rounded-full text-sm"
-                  >
-                    {genre.name}
-                  </span>
-                ))}
+            {/* Genres */}
+            {anime.genres?.length > 0 && (
+              <div>
+                <h3 className="text-[#FFFFFF] text-lg font-semibold mb-2">
+                  Genres:
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {anime.genres.map((genre) => (
+                    <span
+                      key={genre.mal_id}
+                      className="px-3 py-1 bg-[#00FF85] text-[#0D0D0D] rounded-full text-sm"
+                    >
+                      {genre.name}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
 
-        {/* YouTube Trailer */}
-        {anime.trailer && anime.trailer.youtube_id && (
-          <div className="mt-12 px-52 flex flex-col">
-            <h2 className="text-2xl font-semibold mb-4">Trailer</h2>
-            <div className="mx-auto w-[700px] h-[400px] rounded-lg overflow-hidden shadow-md">
+        {/* Trailer */}
+        {anime.trailer?.youtube_id && (
+          <div className="mt-12 w-full max-w-5xl mx-auto">
+            <h2 className="text-2xl font-semibold mb-4 text-white">Trailer</h2>
+            <div className="aspect-video w-[700px] h-[400px] mx-auto rounded-lg overflow-hidden shadow-md">
               <iframe
                 width="100%"
                 height="100%"
@@ -129,13 +160,15 @@ export default async function AnimeDetailsPage({ params }: PageProps) {
             </div>
           </div>
         )}
-        {anime.streaming?.length > 0 && (
-          <div className="mt-8">
+
+        {/* Streaming Platforms */}
+        {Array.isArray(anime.streaming) && anime.streaming?.length > 0 && (
+          <div className="mt-8 px-20">
             <h2 className="text-[#FFFFFF] text-xl font-semibold mb-4">
               Available On:
             </h2>
             <ul className="text-[#FFFFFF] space-y-2 list-disc list-inside">
-              {anime.streaming.map((stream: any) => (
+              {anime.streaming?.map((stream) => (
                 <li key={stream.name}>
                   <a
                     href={stream.url}

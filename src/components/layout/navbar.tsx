@@ -4,7 +4,7 @@ import { Menu } from "lucide-react";
 
 const Navbar = () => {
   return (
-    <nav className="w-full max-w-7xl fixed z-20 py-4 px-8 flex items-center justify-between bg-[#121212] mx-auto -top-1 text-[#00FF85] ">
+    <nav className="w-full max-w-7xl fixed z-20 py-5 px-8 flex items-center justify-between bg-[#121212] mx-auto -top-1 text-[#00FF85] ">
       <div className="flex items-center">
         <Link href="/" className="text-xl font-bold text-[] ">
           Anime Gallery
@@ -33,6 +33,12 @@ const Navbar = () => {
               className="text-sm font-medium hover:underline"
             >
               Recommendation
+            </Link>
+            <Link
+              href="#up-coming"
+              className="text-sm font-medium hover:underline"
+            >
+              Up Coming Seasons
             </Link>
             <Link
               href="/characters"
