@@ -100,7 +100,7 @@ const AnimeRecommendation = () => {
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              className="px-3 py-1 rounded-md text-sm font-medium border bg-white text-gray-800 hover:bg-gray-200 disabled:opacity-50"
+              className="px-3 py-1 rounded-md text-sm font-medium border bg-white text-gray-800 hover:bg-gray-200 disabled:opacity-50 cursor-pointer"
             >
               Previous
             </button>

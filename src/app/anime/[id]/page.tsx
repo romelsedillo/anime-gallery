@@ -47,6 +47,7 @@ const getAnimeData = async (id: string): Promise<Anime | null> => {
     const data = await res.json();
     return data.data;
   } catch (error) {
+    console.log(error);
     return null;
   }
 };
