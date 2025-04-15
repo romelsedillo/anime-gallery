@@ -11,9 +11,9 @@ interface Anime {
   title: string;
   title_english?: string;
   synopsis?: string;
-  images: {
-    jpg: {
-      large_image_url: string;
+  images?: {
+    jpg?: {
+      large_image_url?: string;
     };
   };
   episodes?: number;
@@ -21,7 +21,7 @@ interface Anime {
   score?: number;
   status?: string;
   type?: string;
-  genres: {
+  genres?: {
     mal_id: number;
     name: string;
   }[];
@@ -43,15 +43,17 @@ const getAnimeData = async (id: string): Promise<Anime | null> => {
     const data = await res.json();
     return data.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return null;
   }
 };
 
-export const AnimeDetailsPage = async ({ params }: Props) => {
+const AnimeDetailsPage = async ({ params }: Props) => {
   const anime = await getAnimeData(params.id);
 
   if (!anime) return notFound();
+
+  const imageUrl = anime.images?.jpg?.large_image_url ?? "/fallback.jpg";
 
   return (
     <div className="max-w-7xl flex flex-col mx-auto">
@@ -67,7 +69,7 @@ export const AnimeDetailsPage = async ({ params }: Props) => {
         <div className="flex flex-col lg:flex-row gap-8 px-20">
           {/* Poster */}
           <Image
-            src={anime.images?.jpg?.large_image_url || "/fallback.jpg"}
+            src={imageUrl}
             alt={anime.title}
             width={335}
             height={473}
@@ -80,7 +82,7 @@ export const AnimeDetailsPage = async ({ params }: Props) => {
               <h1 className="text-[#FFFFFF] text-4xl font-bold">
                 {anime.title}
               </h1>
-              {anime.title_english && (
+              {anime.title_english && anime.title_english !== anime.title && (
                 <h2 className="text-xl text-[#FFFFFF] mt-1">
                   {anime.title_english}
                 </h2>
@@ -104,7 +106,9 @@ export const AnimeDetailsPage = async ({ params }: Props) => {
               </span>
               <span className="text-[#FFFFFF]">
                 Score:{" "}
-                <span className="text-[#00FF85]">{anime.score ?? "?"}/10</span>
+                <span className="text-[#00FF85]">
+                  {anime.score ? `${anime.score}/10` : "?"}
+                </span>
               </span>
               <span className="text-[#FFFFFF]">
                 Status:{" "}
@@ -119,7 +123,7 @@ export const AnimeDetailsPage = async ({ params }: Props) => {
             </div>
 
             {/* Genres */}
-            {anime.genres?.length > 0 && (
+            {anime.genres && anime.genres.length > 0 && (
               <div>
                 <h3 className="text-[#FFFFFF] text-lg font-semibold mb-2">
                   Genres:
@@ -158,13 +162,13 @@ export const AnimeDetailsPage = async ({ params }: Props) => {
         )}
 
         {/* Streaming Platforms */}
-        {Array.isArray(anime.streaming) && anime.streaming?.length > 0 && (
+        {Array.isArray(anime.streaming) && anime.streaming.length > 0 && (
           <div className="mt-8 px-20">
             <h2 className="text-[#FFFFFF] text-xl font-semibold mb-4">
               Available On:
             </h2>
             <ul className="text-[#FFFFFF] space-y-2 list-disc list-inside">
-              {anime.streaming?.map((stream) => (
+              {anime.streaming.map((stream) => (
                 <li key={stream.name}>
                   <a
                     href={stream.url}
@@ -183,4 +187,5 @@ export const AnimeDetailsPage = async ({ params }: Props) => {
     </div>
   );
 };
+
 export default AnimeDetailsPage;
