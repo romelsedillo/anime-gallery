@@ -57,6 +57,7 @@ export const useAnimeStore = create<AnimeStore>((set, get) => ({
         "https://api.jikan.moe/v4/recommendations/anime"
       );
       set({ recommendationAnime: res.data.data });
+      console.log(res);
     } catch (err) {
       console.error("Failed to fetch recommendations anime.", err);
     } finally {

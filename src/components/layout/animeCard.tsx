@@ -13,7 +13,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, releaseDate }) => {
       <div className="overflow-hidden rounded">
         <Image
           loading="lazy"
-          src={anime.images.jpg.large_image_url}
+          src={anime.images?.jpg?.large_image_url || "/fallback.jpg"}
           alt={anime.title || "Anime Poster"}
           width={335}
           height={473}
