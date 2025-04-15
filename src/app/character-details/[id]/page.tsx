@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
-import Footer from "@/components/layout/Footer";
 import Link from "next/link";
 import CharacterNavbar from "@/components/layout/CharacterNavbar";
 
@@ -134,8 +133,6 @@ const CharacterDetails = () => {
           </div>
         )}
       </div>
-
-      <Footer />
     </div>
   );
 };
