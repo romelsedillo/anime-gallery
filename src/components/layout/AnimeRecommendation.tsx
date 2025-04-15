@@ -4,55 +4,27 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import AnimeSkeleton from "./AnimeSkeleton";
 import AnimeCard from "./animeCard";
-
-interface AnimeEntry {
-  mal_id: number;
-  title: string;
-  url: string;
-  images: {
-    jpg: {
-      large_image_url: string;
-    };
-  };
-}
-
-interface Recommendation {
-  entry: AnimeEntry[];
-}
+import { useAnimeStore } from "@/stores/animeStore";
 
 const AnimeRecommendation = () => {
-  const [recommendations, setRecommendations] = useState<AnimeEntry[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { recommendationAnime, fetchRecommendationAnime, loading } =
+    useAnimeStore();
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
 
   useEffect(() => {
-    const fetchRecommendations = async () => {
-      try {
-        const res = await fetch(
-          "https://api.jikan.moe/v4/recommendations/anime"
-        );
-        const data = await res.json();
-        const entries: AnimeEntry[] = data?.data.flatMap(
-          (rec: Recommendation) => rec.entry
-        );
-        setRecommendations(entries);
-        console.log(data);
-      } catch (error) {
-        console.error("Failed to fetch recommendations", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRecommendations();
-  }, []);
+    fetchRecommendationAnime();
+  }, [fetchRecommendationAnime]);
 
   // Pagination logic
-  const totalPages = Math.ceil(recommendations.length / itemsPerPage);
+  const totalPages = Math.ceil(recommendationAnime.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = recommendations.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = recommendationAnime.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
