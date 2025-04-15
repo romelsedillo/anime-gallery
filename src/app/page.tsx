@@ -1,9 +1,9 @@
-import AnimeRecommendation from "@/components/layout/AnimeRecomendation";
-import Footer from "@/components/layout/Footer";
-import Hero from "@/components/layout/Hero";
 import Navbar from "@/components/layout/Navbar";
+import Hero from "@/components/layout/Hero";
 import TopAnime from "@/components/layout/TopAnime";
+import AnimeRecommendation from "@/components/layout/AnimeRecommendation";
 import UpComingSeason from "@/components/layout/UpComingSeason";
+import Footer from "@/components/layout/Footer";
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <TopAnime />
-      <AnimeRecommendation />
+      <AnimeRecommendation/>
       <UpComingSeason />
       <Footer />
     </div>
