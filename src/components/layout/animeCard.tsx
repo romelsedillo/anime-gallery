@@ -1,22 +1,6 @@
 import Image from "next/image";
 import React from "react";
-
-type Anime = {
-  mal_id: number;
-  title: string;
-  images: {
-    jpg: {
-      large_image_url: string;
-    };
-  };
-  aired?: {
-    prop?: {
-      day?: number;
-      month?: number;
-      year?: number;
-    };
-  };
-};
+import { Anime } from "@/types/anime";
 
 type AnimeCardProps = {
   anime: Anime;

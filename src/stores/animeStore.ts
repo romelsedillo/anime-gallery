@@ -1,26 +1,6 @@
 import axios from "axios";
 import { create } from "zustand";
-
-type Anime = {
-  mal_id: number;
-  title: string;
-  name: string;
-  images: {
-    jpg: {
-      image_url: string;
-      large_image_url: string;
-    };
-  };
-  aired?: {
-    prop?: {
-      from?: {
-        day?: number;
-        month?: number;
-        year?: number;
-      };
-    };
-  };
-};
+import { Anime } from "@/types/anime";
 
 type AnimeStore = {
   topAnime: Anime[];
