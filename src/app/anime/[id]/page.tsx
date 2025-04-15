@@ -1,8 +1,6 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 
 interface PageProps {
   params: {
@@ -59,7 +57,6 @@ export default async function AnimeDetailsPage({ params }: PageProps) {
 
   return (
     <div className="max-w-7xl flex flex-col mx-auto">
-      <Navbar />
       <div className="py-20">
         {/* Back Button */}
         <Link
@@ -185,7 +182,6 @@ export default async function AnimeDetailsPage({ params }: PageProps) {
           </div>
         )}
       </div>
-      <Footer />
     </div>
   );
 }
