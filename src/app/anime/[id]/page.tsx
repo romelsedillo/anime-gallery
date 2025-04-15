@@ -2,10 +2,6 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
-type PageProps = {
-  params: { id: string };
-};
-
 interface Anime {
   mal_id: number;
   title: string;
@@ -48,7 +44,7 @@ const getAnimeData = async (id: string): Promise<Anime | null> => {
   }
 };
 
-const AnimeDetailsPage = async ({ params }: PageProps) => {
+const AnimeDetailsPage = async ({ params }: { params: { id: string } }) => {
   const anime = await getAnimeData(params.id);
 
   if (!anime) return notFound();
