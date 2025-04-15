@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Footer from "@/components/layout/Footer";
+
 import AnimeSkeleton from "@/components/layout/AnimeSkeleton";
 import { useAnimeStore } from "@/stores/animeStore";
 import CharacterNavbar from "@/components/layout/CharacterNavbar";
@@ -52,7 +52,6 @@ const Characters = () => {
             ))}
           </div>
         )}
-        <Footer />
       </div>
     </div>
   );
