@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import AnimeSkeleton from "./AnimeSkeleton";
 import { useAnimeStore } from "@/stores/animeStore";
+import AnimeCard from "./animeCard";
 
 const TopAnime = () => {
   const { topAnime, fetchTopAnime, loading } = useAnimeStore();
@@ -23,23 +23,10 @@ const TopAnime = () => {
       {loading ? (
         <AnimeSkeleton />
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4 sm:px-6 md:px-8">
+        <div className="max-w-5xl mx-auto grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {topAnime.map((anime) => (
             <Link href={`/anime/${anime.mal_id}`} key={anime.mal_id}>
-              <div className="w-full max-w-[200px] mx-auto mb-2">
-                <div className="overflow-hidden rounded">
-                  <Image
-                    src={anime.images.jpg.large_image_url}
-                    alt={anime.title}
-                    width={335}
-                    height={473}
-                    className="w-[200px] h-[282px] object-cover transition-transform duration-300 hover:scale-105"
-                  />
-                </div>
-                <h2 className="text-[#E0E0E0] line-clamp-2 font-semibold text-lg w-full break-words text-left">
-                  {anime.title}
-                </h2>
-              </div>
+              <AnimeCard anime={anime} />
             </Link>
           ))}
         </div>

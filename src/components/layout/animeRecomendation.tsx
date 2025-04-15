@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import AnimeSkeleton from "./AnimeSkeleton";
+import AnimeCard from "./animeCard";
 
 interface AnimeEntry {
   mal_id: number;
@@ -69,28 +69,13 @@ const AnimeRecommendation = () => {
         <AnimeSkeleton />
       ) : currentItems.length > 0 ? (
         <>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4 sm:px-6 md:px-8">
+          <div className="max-w-5xl mx-auto grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {currentItems.map((anime, index) => (
               <Link
                 key={`${anime.mal_id}-${index}`}
                 href={`/anime/${anime.mal_id}`}
               >
-                <div className="w-full max-w-[200px] mx-auto mb-2">
-                  <div className="overflow-hidden rounded">
-                    <Image
-                      src={
-                        anime.images?.jpg?.large_image_url || "/fallback.jpg"
-                      }
-                      alt={anime.title}
-                      width={335}
-                      height={473}
-                      className="w-[200px] h-[282px] object-cover transition-transform duration-300 hover:scale-105"
-                    />
-                  </div>
-                  <h2 className="text-[#E0E0E0] line-clamp-2 font-semibold text-lg w-full break-words text-left">
-                    {anime.title}
-                  </h2>
-                </div>
+                <AnimeCard anime={anime} />
               </Link>
             ))}
           </div>
