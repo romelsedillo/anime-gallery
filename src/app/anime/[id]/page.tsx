@@ -50,6 +50,8 @@ const getAnimeData = async (id: string): Promise<Anime | null> => {
   }
 };
 
+
+
 export default async function AnimeDetailsPage({ params }: PageProps) {
   const anime = await getAnimeData(params.id);
 
