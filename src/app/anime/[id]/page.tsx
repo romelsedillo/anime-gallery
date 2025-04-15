@@ -2,6 +2,10 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
+type Props = {
+  params: { id: string };
+};
+
 interface Anime {
   mal_id: number;
   title: string;
@@ -44,11 +48,7 @@ const getAnimeData = async (id: string): Promise<Anime | null> => {
   }
 };
 
-export default async function AnimeDetailsPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default async function AnimeDetailsPage({ params }: Props) {
   const anime = await getAnimeData(params.id);
 
   if (!anime) return notFound();
