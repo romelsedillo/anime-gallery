@@ -48,7 +48,7 @@ const getAnimeData = async (id: string): Promise<Anime | null> => {
   }
 };
 
-export default async function AnimeDetailsPage({ params }: Props) {
+export const AnimeDetailsPage = async ({ params }: Props) => {
   const anime = await getAnimeData(params.id);
 
   if (!anime) return notFound();
@@ -182,4 +182,5 @@ export default async function AnimeDetailsPage({ params }: Props) {
       </div>
     </div>
   );
-}
+};
+export default AnimeDetailsPage;
