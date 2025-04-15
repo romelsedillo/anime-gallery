@@ -2,14 +2,18 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
+type Props = {
+  params: { id: string };
+};
+
 interface Anime {
   mal_id: number;
   title: string;
   title_english?: string;
   synopsis?: string;
-  images?: {
-    jpg?: {
-      large_image_url?: string;
+  images: {
+    jpg: {
+      large_image_url: string;
     };
   };
   episodes?: number;
@@ -17,7 +21,7 @@ interface Anime {
   score?: number;
   status?: string;
   type?: string;
-  genres?: {
+  genres: {
     mal_id: number;
     name: string;
   }[];
@@ -44,17 +48,14 @@ const getAnimeData = async (id: string): Promise<Anime | null> => {
   }
 };
 
-const AnimeDetailsPage = async ({ params }: { params: { id: string } }) => {
+const AnimeDetailsPage = async ({ params }: Props) => {
   const anime = await getAnimeData(params.id);
 
   if (!anime) return notFound();
 
-  const imageUrl = anime.images?.jpg?.large_image_url ?? "/fallback.jpg";
-
   return (
     <div className="max-w-7xl flex flex-col mx-auto">
       <div className="py-20">
-        {/* Back Button */}
         <Link
           href="/"
           className="inline-block text-[#00FF85] hover:underline mb-6 px-20"
@@ -63,22 +64,20 @@ const AnimeDetailsPage = async ({ params }: { params: { id: string } }) => {
         </Link>
 
         <div className="flex flex-col lg:flex-row gap-8 px-20">
-          {/* Poster */}
           <Image
-            src={imageUrl}
+            src={anime.images?.jpg?.large_image_url || "/fallback.jpg"}
             alt={anime.title}
             width={335}
             height={473}
             className="w-[335px] h-[473px] object-cover rounded-lg"
           />
 
-          {/* Anime Info */}
           <div className="lg:w-2/3 space-y-6">
             <div>
               <h1 className="text-[#FFFFFF] text-4xl font-bold">
                 {anime.title}
               </h1>
-              {anime.title_english && anime.title_english !== anime.title && (
+              {anime.title_english && (
                 <h2 className="text-xl text-[#FFFFFF] mt-1">
                   {anime.title_english}
                 </h2>
@@ -102,9 +101,7 @@ const AnimeDetailsPage = async ({ params }: { params: { id: string } }) => {
               </span>
               <span className="text-[#FFFFFF]">
                 Score:{" "}
-                <span className="text-[#00FF85]">
-                  {anime.score ? `${anime.score}/10` : "?"}
-                </span>
+                <span className="text-[#00FF85]">{anime.score ?? "?"}/10</span>
               </span>
               <span className="text-[#FFFFFF]">
                 Status:{" "}
@@ -118,8 +115,7 @@ const AnimeDetailsPage = async ({ params }: { params: { id: string } }) => {
               </span>
             </div>
 
-            {/* Genres */}
-            {anime.genres && anime.genres.length > 0 && (
+            {anime.genres?.length > 0 && (
               <div>
                 <h3 className="text-[#FFFFFF] text-lg font-semibold mb-2">
                   Genres:
@@ -139,7 +135,6 @@ const AnimeDetailsPage = async ({ params }: { params: { id: string } }) => {
           </div>
         </div>
 
-        {/* Trailer */}
         {anime.trailer?.youtube_id && (
           <div className="mt-12 w-full max-w-5xl mx-auto">
             <h2 className="text-2xl font-semibold mb-4 text-white">Trailer</h2>
@@ -157,7 +152,6 @@ const AnimeDetailsPage = async ({ params }: { params: { id: string } }) => {
           </div>
         )}
 
-        {/* Streaming Platforms */}
         {Array.isArray(anime.streaming) && anime.streaming.length > 0 && (
           <div className="mt-8 px-20">
             <h2 className="text-[#FFFFFF] text-xl font-semibold mb-4">
