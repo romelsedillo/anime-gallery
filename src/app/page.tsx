@@ -3,7 +3,7 @@ import Hero from "@/components/layout/Hero";
 import TopAnime from "@/components/layout/TopAnime";
 import AnimeRecommendation from "@/components/layout/AnimeRecommendation";
 import UpComingSeason from "@/components/layout/UpComingSeason";
-import Footer from "@/components/layout/Footer";
+
 
 export default function Home() {
   return (
@@ -13,7 +13,6 @@ export default function Home() {
       <TopAnime />
       <AnimeRecommendation/>
       <UpComingSeason />
-      <Footer />
     </div>
   );
 }
