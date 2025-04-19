@@ -7,6 +7,7 @@ import Link from "next/link";
 import AnimeSkeleton from "@/components/layout/AnimeSkeleton";
 import { useAnimeStore } from "@/stores/animeStore";
 import CharacterNavbar from "@/components/layout/CharacterNavbar";
+import Footer from "@/components/layout/Footer";
 
 const Characters = () => {
   const { animeCharacters, fetchAnimeCharacters, loading } = useAnimeStore();
@@ -27,7 +28,7 @@ const Characters = () => {
         {loading ? (
           <AnimeSkeleton />
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4 sm:px-6 md:px-8 pb-20">
+          <div className="max-w-5xl mx-auto grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {animeCharacters.map((character) => (
               <Link
                 href={`/character-details/${character.mal_id}`}
@@ -41,7 +42,7 @@ const Characters = () => {
                       alt={character.name}
                       width={200}
                       height={280}
-                      className="w-[200px] h-[280px] object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="lg:w-[180px] lg:h-[254px] object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                   </div>
                   <h2 className="text-[#FFFFFF] text-md mt-2 font-semibold text-left line-clamp-2">
@@ -53,6 +54,7 @@ const Characters = () => {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 };

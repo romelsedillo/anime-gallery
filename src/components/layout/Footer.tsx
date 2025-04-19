@@ -1,10 +1,11 @@
 import React from "react";
-import { FaGithub } from "react-icons/fa";
-import { FaLinkedin } from "react-icons/fa";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
+import ScrollToTop from "./ScrollToTop";
 
 const Footer = () => {
   return (
-    <div className="py-8 flex flex-col w-full ">
+    <div className="py-4 mt-20 flex flex-col w-full">
+      <ScrollToTop />
       <div className="text-[#00FF85] flex items-center justify-center gap-4 w-full">
         <FaGithub className="w-6 h-6" />
         <FaLinkedin className="w-6 h-6" />

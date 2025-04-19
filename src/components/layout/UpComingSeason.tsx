@@ -28,7 +28,7 @@ const UpComingSeason = () => {
         <div className="max-w-5xl mx-auto grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {upcomingAnime.map((anime: Anime, index: number) => (
             <Link
-              href={`/anime/${anime.mal_id}`}
+              href={`/anime-details/${anime.mal_id}`}
               key={`${anime.mal_id}-${index}`}
               className="group"
             >

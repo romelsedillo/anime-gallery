@@ -10,12 +10,12 @@ const Navbar = () => {
           Anime Gallery
         </Link>
       </div>
-      <div className="flex items-center space-x-4">
+      {/* <div className="flex items-center space-x-4">
         <input
           placeholder="Search anime..."
           className="w-sm px-4 py-1 outline-none border-1 text-[#E0E0E0]  border-[#00FF85] rounded-lg"
         />
-      </div>
+      </div> */}
       <div className="hidden md:block">
         <div className="hidden md:block">
           <div className="flex items-center gap-4">

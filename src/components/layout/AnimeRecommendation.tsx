@@ -75,7 +75,7 @@ const AnimeRecommendation = () => {
             {currentItems.map((anime, index) => (
               <Link
                 key={`${anime.mal_id}-${index}`}
-                href={`/anime/${anime.mal_id}`}
+                href={`/anime-details/${anime.mal_id}`}
               >
                 <AnimeCard anime={anime} />
               </Link>

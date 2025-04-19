@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import CharacterNavbar from "@/components/layout/CharacterNavbar";
+import Footer from "@/components/layout/Footer";
 
 interface Character {
   mal_id: number;
@@ -87,7 +88,7 @@ const CharacterDetails = () => {
         ) : (
           <div className="mx-auto text-white px-20">
             {/* Character Header */}
-            <div className="w-full flex flex-col md:flex-row items-start gap-8 mb-12">
+            <div className="max-w-2xl mx-auto flex flex-col md:flex-row items-start gap-8 mb-12">
               <Image
                 src={character?.images.jpg.image_url || "/fallback.jpg"}
                 alt={character?.name || "Character"}
@@ -110,7 +111,7 @@ const CharacterDetails = () => {
             <div className="border-b-3 border-[#00FF85] w-full mb-10"></div>
 
             {animeAppearances.length > 0 ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4 sm:px-6 md:px-8">
+              <div className="max-w-5xl mx-auto grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                 {animeAppearances.map(({ anime, role }) => (
                   <div key={anime.mal_id} className="text-left">
                     <Image
@@ -133,6 +134,7 @@ const CharacterDetails = () => {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 };
