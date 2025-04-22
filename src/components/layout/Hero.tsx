@@ -21,7 +21,10 @@ const Hero = () => {
   }, []);
 
   return (
-    <div id="home" className="pt-14 relative w-full h-[720px] overflow-hidden">
+    <div
+      id="home"
+      className="pt-14 mt-16 relative w-full h-[720px] overflow-hidden"
+    >
       {images.map((img, index) => (
         <div
           key={index}

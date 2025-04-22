@@ -7,7 +7,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const handleClick = () => setOpen(!open);
   return (
-    <nav className="w-full max-w-7xl fixed z-20 py-5 px-8 flex items-center justify-between bg-[#121212] mx-auto -top-1 text-[#00FF85] ">
+    <nav className="w-full max-w-7xl fixed z-20 py-5 px-4 flex items-center justify-between bg-[#121212] mx-auto -top-1 text-[#00FF85] ">
       <div className="flex items-center">
         <Link href="/" className="hidden md:block text-xl font-bold">
           Anime Gallery

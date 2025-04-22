@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 import Footer from "@/components/layout/Footer";
-import Navbar from "@/components/layout/CharacterNavbar";
+import Navbar from "@/components/layout/Navbar";
 
 const AnimeDetails = () => {
   const [animeDetails, setAnimeDetails] = useState<any>({});
@@ -38,21 +38,23 @@ const AnimeDetails = () => {
   }, [id]);
 
   return (
-    <div className="max-w-7xl px-10 flex flex-col mx-auto">
+    <div className="max-w-7xl flex flex-col mx-auto">
       <Navbar />
-      <Link
-        href="/"
-        className="inline-block text-[#00FF85] hover:underline mb-6 mt-24 px-20"
-      >
-        ← Back to Home
-      </Link>
+      <div className="w-full max-w-5xl mx-auto px-4 border">
+        <Link
+          href="/"
+          className="inline-block text-[#00FF85] hover:underline mb-6 mt-24"
+        >
+          ← Back to Home
+        </Link>
+      </div>
       {loading ? (
         <div className="flex flex-col items-center justify-center gap-4 mb-40">
           <div className="w-12 h-12 border-4 border-t-[#00FF85] border-[#0D0D0D] animate-spin rounded-full"></div>
           <div className="text-center text-3xl">Loading. Please wait...</div>
         </div>
       ) : (
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-5xl px-4 mx-auto border">
           <div className="flex flex-col md:flex-row gap-6">
             <Image
               alt={animeDetails.title || "Anime Poster"}
@@ -151,7 +153,7 @@ const AnimeDetails = () => {
           )}
           {Array.isArray(animeDetails.streaming) &&
             animeDetails.streaming.length > 0 && (
-              <div className="mt-8 px-20">
+              <div className="mt-8 px-4">
                 <h2 className="text-[#FFFFFF] text-xl font-semibold mb-4">
                   Available On:
                 </h2>

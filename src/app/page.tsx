@@ -1,7 +1,7 @@
 import AnimeRecommendation from "@/components/layout/AnimeRecommendation";
-import Navbar from "@/components/layout/CharacterNavbar";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/layout/Hero";
+import Navbar from "@/components/layout/Navbar";
 import TopAnime from "@/components/layout/TopAnime";
 import UpComingSeason from "@/components/layout/UpComingSeason";
 
