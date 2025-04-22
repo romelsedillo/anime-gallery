@@ -81,7 +81,7 @@ const AnimeDetails = () => {
   return (
     <div className="max-w-7xl flex flex-col mx-auto">
       <Navbar />
-      <div className="w-full max-w-5xl mx-auto px-4 border">
+      <div className="w-full max-w-5xl mx-auto px-4">
         <Link
           href="/"
           className="inline-block text-[#00FF85] hover:underline mb-6 mt-24"
@@ -95,7 +95,7 @@ const AnimeDetails = () => {
           <div className="text-center text-3xl">Loading. Please wait...</div>
         </div>
       ) : (
-        <div className="max-w-5xl px-4 mx-auto border">
+        <div className="max-w-5xl px-4 mx-auto">
           <div className="flex flex-col md:flex-row gap-6">
             <Image
               alt={animeDetails?.title || "Anime Poster"}
