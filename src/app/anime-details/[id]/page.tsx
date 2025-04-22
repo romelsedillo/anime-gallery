@@ -8,8 +8,49 @@ import axios from "axios";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
 
+type AnimeGenre = {
+  mal_id: number;
+  name: string;
+  type: string;
+  url: string;
+};
+
+type AnimeTrailer = {
+  youtube_id: string | null;
+  url: string;
+  embed_url: string;
+};
+
+type AnimeStreaming = {
+  name: string;
+  url: string;
+};
+
+type AnimeDetailsType = {
+  mal_id: number;
+  title: string;
+  title_english?: string;
+  synopsis?: string;
+  episodes?: number;
+  year?: number;
+  score?: number;
+  status?: string;
+  type?: string;
+  images: {
+    jpg: {
+      image_url: string;
+      large_image_url: string;
+    };
+  };
+  genres: AnimeGenre[];
+  trailer?: AnimeTrailer;
+  streaming: AnimeStreaming[];
+};
+
 const AnimeDetails = () => {
-  const [animeDetails, setAnimeDetails] = useState<any>({});
+  const [animeDetails, setAnimeDetails] = useState<AnimeDetailsType | null>(
+    null
+  );
   const [loading, setLoading] = useState(false);
   const params = useParams();
   const id = params?.id;
@@ -57,8 +98,10 @@ const AnimeDetails = () => {
         <div className="max-w-5xl px-4 mx-auto border">
           <div className="flex flex-col md:flex-row gap-6">
             <Image
-              alt={animeDetails.title || "Anime Poster"}
-              src={animeDetails.images?.jpg?.large_image_url || "/fallback.jpg"}
+              alt={animeDetails?.title || "Anime Poster"}
+              src={
+                animeDetails?.images?.jpg?.large_image_url || "/fallback.jpg"
+              }
               width={335}
               height={473}
               className="w-[335px] h-[473px] object-cover rounded-lg mx-auto"
@@ -67,15 +110,15 @@ const AnimeDetails = () => {
               <div className="flex flex-col items-center">
                 <div className="w-full">
                   <h1 className="text-[#FFFFFF] text-center md:text-left text-4xl font-bold">
-                    {animeDetails.title}
+                    {animeDetails?.title}
                   </h1>
-                  {animeDetails.title_english && (
+                  {animeDetails?.title_english && (
                     <h2 className="text-center text-xl text-[#FFFFFF] mt-1 md:text-left">
                       {animeDetails.title_english}
                     </h2>
                   )}
                 </div>
-                {animeDetails.synopsis && (
+                {animeDetails?.synopsis && (
                   <p className="text-center text-lg leading-relaxed text-[#FFFFFF] mx-auto md:text-left">
                     {animeDetails.synopsis}
                   </p>
@@ -84,42 +127,42 @@ const AnimeDetails = () => {
                   <span className="text-[#FFFFFF]">
                     Episodes:{" "}
                     <span className="text-[#00FF85]">
-                      {animeDetails.episodes ?? "?"}
+                      {animeDetails?.episodes ?? "?"}
                     </span>
                   </span>
                   <span className="text-[#FFFFFF]">
                     Year:{" "}
                     <span className="text-[#00FF85]">
-                      {animeDetails.year ?? "?"}
+                      {animeDetails?.year ?? "?"}
                     </span>
                   </span>
                   <span className="text-[#FFFFFF]">
                     Score:{" "}
                     <span className="text-[#00FF85]">
-                      {animeDetails.score ?? "?"}/10
+                      {animeDetails?.score ?? "?"}/10
                     </span>
                   </span>
                   <span className="text-[#FFFFFF]">
                     Status:{" "}
                     <span className="text-[#00FF85]">
-                      {animeDetails.status ?? "Unknown"}
+                      {animeDetails?.status ?? "Unknown"}
                     </span>
                   </span>
                   <span className="text-[#FFFFFF]">
                     Type:{" "}
                     <span className="text-[#00FF85]">
-                      {animeDetails.type ?? "?"}
+                      {animeDetails?.type ?? "?"}
                     </span>
                   </span>
                 </div>
               </div>
-              {animeDetails.genres?.length > 0 && (
+              {animeDetails?.genres && animeDetails?.genres?.length > 0 && (
                 <div>
                   <h3 className="text-[#FFFFFF] text-lg font-semibold mb-2">
                     Genres:
                   </h3>
                   <div className="flex flex-wrap gap-2">
-                    {animeDetails.genres.map((genre) => (
+                    {animeDetails?.genres.map((genre) => (
                       <span
                         key={genre.mal_id}
                         className="px-3 py-1 bg-[#00FF85] text-[#0D0D0D] rounded-full text-sm"
@@ -133,7 +176,7 @@ const AnimeDetails = () => {
             </div>
           </div>
 
-          {animeDetails.trailer?.youtube_id && (
+          {animeDetails?.trailer?.youtube_id && (
             <div className="mt-12 w-full max-w-5xl mx-auto">
               <h2 className="text-2xl font-semibold mb-4 text-white">
                 Trailer
@@ -142,8 +185,8 @@ const AnimeDetails = () => {
                 <iframe
                   width="100%"
                   height="100%"
-                  src={`https://www.youtube.com/embed/${animeDetails.trailer.youtube_id}`}
-                  title={`${animeDetails.title} Trailer`}
+                  src={`https://www.youtube.com/embed/${animeDetails?.trailer.youtube_id}`}
+                  title={`${animeDetails?.title} Trailer`}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                   className="w-full h-full"
@@ -151,7 +194,7 @@ const AnimeDetails = () => {
               </div>
             </div>
           )}
-          {Array.isArray(animeDetails.streaming) &&
+          {Array.isArray(animeDetails?.streaming) &&
             animeDetails.streaming.length > 0 && (
               <div className="mt-8 px-4">
                 <h2 className="text-[#FFFFFF] text-xl font-semibold mb-4">
